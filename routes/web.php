@@ -2,7 +2,11 @@
 
 use App\Http\Controllers\Auth\UserAuthController;
 use App\Http\Controllers\Auth\AdminAuthController;
+use App\Http\Controllers\LandingPageController;
 use Illuminate\Support\Facades\Route;
+
+// Landing Page Route
+Route::get('/', [LandingPageController::class, 'index'])->name('home');
 
 // User Routes
 Route::prefix('user')->group(function () {
@@ -13,12 +17,12 @@ Route::prefix('user')->group(function () {
     Route::post('/logout', [UserAuthController::class, 'logout'])->name('user.logout');
     
     Route::get('/dashboard', function () {
-        return view('auth.user.dashboard');
+        return view('user.dashboard');
     })->middleware('auth:web');
 });
 
 // Admin Routes
-Route::prefix('admin')->group(  function () {
+Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [AdminAuthController::class, 'login']);
     Route::get('/register', [AdminAuthController::class, 'showRegisterForm'])->name('admin.register');
@@ -28,8 +32,4 @@ Route::prefix('admin')->group(  function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->middleware('auth:admin');
-});
-
-Route::get('/', function () {
-    return view('welcome');
 });

@@ -53,7 +53,7 @@ class UserAuthController extends Controller
 
         Auth::guard('web')->login($user);
 
-        return redirect('/user/dashboard');
+        return redirect('user/dashboard');
     }
 
     public function logout(Request $request)
