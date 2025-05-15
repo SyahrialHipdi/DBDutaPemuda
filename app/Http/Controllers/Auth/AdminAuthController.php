@@ -16,22 +16,27 @@ class AdminAuthController extends Controller
     }
 
     public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+{
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        if (Auth::guard('admin')->attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('/admin/dashboard');
-        }
-
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
+    if (Auth::guard('admin')->attempt($credentials)) {
+        $request->session()->regenerate();
+        
+        return match(auth('admin')->user()->role) {
+            'admin' => redirect()->intended('/admin/dashboard'),
+            'verifikator' => redirect()->intended('/verifikator/dashboard'),
+            'juri' => redirect()->intended('/juri/dashboard'),
+            default => redirect('/admin/dashboard')
+        };
     }
 
+    return back()->withErrors([
+        'email' => 'Credentials do not match our records.',
+    ]);
+}
     public function showRegisterForm()
     {
         return view('auth.admin.register');

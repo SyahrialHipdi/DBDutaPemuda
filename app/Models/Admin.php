@@ -15,6 +15,7 @@ class Admin extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     protected $hidden = [
@@ -29,4 +30,19 @@ class Admin extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function isAdmin(): bool
+{
+    return $this->role === 'admin';
+}
+
+public function isVerifikator(): bool
+{
+    return $this->role === 'verifikator';
+}
+
+public function isJuri(): bool
+{
+    return $this->role === 'juri';
+}
 }
