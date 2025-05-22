@@ -44,7 +44,7 @@
                         </li>
                     @endauth
                     
-                    @guest('web')
+                    {{-- @guest('web')
                         <li class="nav-item">
                             <a class="nav-link {{ request()->is('user/login') ? 'active' : '' }}" href="/user/login">User Login</a>
                         </li>
@@ -60,7 +60,7 @@
                         <li class="nav-item">
                             <a class="nav-link {{ request()->is('admin/register') ? 'active' : '' }}" href="/admin/register">Admin Register</a>
                         </li>
-                    @endguest
+                    @endguest --}}
                 </ul>
             </div>
         </div>

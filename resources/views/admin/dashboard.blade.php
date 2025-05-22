@@ -35,7 +35,8 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Quick Actions</h5>
                                     <a href="/" class="btn btn-outline-primary d-block mb-2">Back to Home</a>
-                                    <form action="/user/logout" method="POST">
+                                    <a href="/admin/register" class="btn btn-outline-warning d-block mb-2">Tambahkan Admin</a>
+                                    <form action="/admin/logout" method="POST">
                                         @csrf
                                         <button type="submit" class="btn btn-outline-danger w-100">Logout</button>
                                     </form>

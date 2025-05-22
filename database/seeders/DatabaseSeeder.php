@@ -18,23 +18,23 @@ class DatabaseSeeder extends Seeder
 
         Admin::create([
         'name' => 'Super Admin',
-        'email' => 'admin@example.com',
+        'username' => 'admin@example.com',
+        'role' => 'admin',
         'password' => '12345',
-        'role' => 'admin'
         ]);
 
         Admin::create([
         'name' => 'Verifikator',
-        'email' => 'verifikator@example.com',
+        'username' => 'verifikator@example.com',
+        'role' => 'verifikator',
         'password' => '12345',
-        'role' => 'verifikator'
         ]);
 
         Admin::create([
         'name' => 'Juri',
-        'email' => 'juri@example.com',
+        'username' => 'juri@example.com',
+        'role' => 'juri',
         'password' => '12345',
-        'role' => 'juri'
         ]);
     }
 }

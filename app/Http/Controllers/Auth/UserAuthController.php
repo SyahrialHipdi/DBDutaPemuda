@@ -40,20 +40,38 @@ class UserAuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            // 'password' => 'required|string|min:8|confirmed',
         ]);
 
+        $tglLahir = $request->input('tanggalLahir'); // format: Y-m-d
+
+        // Generate password dari tanggal lahir misalnya (tanpa tanda strip)
+        $password = str_replace('-', '', $tglLahir); // 19990519
+        $hashedPassword = Hash::make($password);
+    
+
         $user = User::create([
-            'name' => $request->name,
+            'nama' => $request->nama,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'whatsapp' => $request->whatsapp,
+            'tanggalLahir' => $request->tanggalLahir,
+            'password' => $hashedPassword,
+            'alamat' => $request->alamat,
+            'rt_rw' => $request->rt_rw,
+            'desa' => $request->desa,
+            'kecamatan' => $request->kecamatan,
+            'kabupaten' => $request->kabupaten,
+            'provinsi' => $request->provinsi,
+            'kodePos' => $request->kodePos,
+            'proposal' => $request->proposal,
+            // 'password' => Hash::make($request->password),
         ]);
 
         Auth::guard('web')->login($user);
 
-        return redirect('user/dashboard');
+        return redirect('user/dashboard')->with('success', 'Berhasil Daftar, password Anda adalah ggal lahir) sialakn ganti password untuk keamanan');
     }
 
     public function logout(Request $request)

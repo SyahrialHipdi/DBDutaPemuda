@@ -13,12 +13,21 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('kota');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('nama',75);
+            $table->string('email',50);
+            $table->string('whatsapp',13);
+            $table->date('tanggalLahir');
+            $table->string('password',100);
+            $table->string('alamat',50);
+            $table->string('rt_rw',7);
+            $table->string('desa',50);
+            $table->string('kecamatan',50);
+            $table->string('kabupaten',50);
+            $table->string('provinsi',50);
+            $table->string('kodePos',5);
+            // $table->string('KTP',100);
+            $table->string('proposal',100);
+            // $table->string('bidang',20);
             $table->timestamps();
         });
 

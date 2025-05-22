@@ -18,7 +18,7 @@ class AdminAuthController extends Controller
     public function login(Request $request)
 {
     $credentials = $request->validate([
-        'email' => 'required|email',
+        'username' => 'required',
         'password' => 'required',
     ]);
 
@@ -34,7 +34,7 @@ class AdminAuthController extends Controller
     }
 
     return back()->withErrors([
-        'email' => 'Credentials do not match our records.',
+        'username' => 'Credentials do not match our records.',
     ]);
 }
     public function showRegisterForm()
@@ -46,17 +46,19 @@ class AdminAuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:admins',
-            'password' => 'required|string|min:8|confirmed',
+            'username' => 'required|string|max:255|unique:admins',
+            'role' => 'required|string|',
+            'password' => 'required|string|',
         ]);
 
         $admin = Admin::create([
             'name' => $request->name,
-            'email' => $request->email,
+            'username' => $request->username,
+            'role' => $request->role,
             'password' => Hash::make($request->password),
         ]);
 
-        Auth::guard('admin')->login($admin);
+        // Auth::guard('admin')->login($admin);
 
         return redirect('/admin/dashboard');
     }

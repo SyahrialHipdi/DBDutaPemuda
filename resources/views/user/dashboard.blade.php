@@ -10,6 +10,9 @@
                 <div class="card-header bg-primary text-white">
                     <h3 class="mb-0">User Dashboard</h3>
                 </div>
+                @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
                 <div class="card-body">
                     <div class="text-center mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-person-circle text-primary" viewBox="0 0 16 16">
