@@ -12,20 +12,23 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $fillable = [
+        'nik',
         'nama',
         'email',
         'whatsapp',
         'tanggalLahir',
         'password',
-        'alamat',
-        'rt_rw',
-        'desa',
-        'kecamatan',
-        'kabupaten',
         'provinsi',
+        'kota',
+        'kecamatan',
+        'desa',
+        'rt_rw',
+        'alamat',
         'kodePos',
-        // 'KTP',
         'proposal',
+        // 'KTP',
+        'status',
+        'rejected_reason',
         // 'bidang',
     ];
 
@@ -41,4 +44,32 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+        public function verifier()
+{
+    return $this->belongsTo(Admin::class, 'verified_by');
+}
+
+// app/Models/User.php
+
+public function getProvinsiNamaAttribute()
+{
+    return TrefRegion::where('code', $this->provinsi)->value('name');
+}
+
+// public function getKotaNamaAttribute()
+// {
+//     return TrefRegion::where('code', $this->kota)->value('name');
+// }
+
+// public function getKecamatanNamaAttribute()
+// {
+//     return TrefRegion::where('code', $this->kecamatan)->value('name');
+// }
+
+// public function getDesaNamaAttribute()
+// {
+//     return TrefRegion::where('code', $this->desa)->value('name');
+// }
+
 }

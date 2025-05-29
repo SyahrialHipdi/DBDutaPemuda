@@ -9,7 +9,7 @@
                 <form method="POST" action="/admin/login">
                     @csrf
                     <div class="mb-3">
-                        <label for="username" class="form-label">Email</label>
+                        <label for="username" class="form-label">Username</label>
                         <input type="username" class="form-control" id="username" name="username" required>
                     </div>
                     <div class="mb-3">

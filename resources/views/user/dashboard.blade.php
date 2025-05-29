@@ -12,6 +12,14 @@
                 </div>
                 @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
+        <a href="user/edit">
+            <div class="alert alert-primary">Klik Disini untuk ganti password</div>
+        </a>
+        @endif
+        @if (session('berhasil'))
+        <div class="alert alert-success">{{ session('berhasil') }}</div>
+            
+
     @endif
                 <div class="card-body">
                     <div class="text-center mb-4">
@@ -28,7 +36,17 @@
                             <div class="card h-100 border-primary">
                                 <div class="card-body">
                                     <h5 class="card-title">Your Profile</h5>
+                                    <p class="card-text">nik: {{ Auth::guard('web')->user()->nik }}</p>
+                                    <p class="card-text">nama: {{ Auth::guard('web')->user()->nama }}</p>
                                     <p class="card-text">Email: {{ Auth::guard('web')->user()->email }}</p>
+                                    <p class="card-text">tanggalLahir: {{ Auth::guard('web')->user()->tanggalLahir }}</p>
+                                    <p class="card-text">whatsapp: {{ Auth::guard('web')->user()->whatsapp }}</p>
+                                    <p class="card-text">provinsi: {{ Auth::guard('web')->user()->provinsi }}</p>
+                                    <p class="card-text">kota: {{ Auth::guard('web')->user()->kota }}</p>
+                                    <p class="card-text">kecamatan: {{ Auth::guard('web')->user()->kecamatan }}</p>
+                                    <p class="card-text">desa: {{ Auth::guard('web')->user()->desa }}</p>
+                                    <p class="card-text">rt_rw: {{ Auth::guard('web')->user()->rt_rw }}</p>
+                                    <p class="card-text">alamat: {{ Auth::guard('web')->user()->alamat }}</p>
                                     <p class="card-text">Account created: {{ Auth::guard('web')->user()->created_at->diffForHumans() }}</p>
                                 </div>
                             </div>
@@ -38,6 +56,9 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Quick Actions</h5>
                                     <a href="/" class="btn btn-outline-primary d-block mb-2">Back to Home</a>
+                                    <a href="/user/edit" class="btn btn-outline-warning d-block mb-2">Ganti Password</a>
+                                    <a href="/user/progress" class="btn btn-outline-secondary d-block mb-2">Progress Lomba</a>
+                                    <a href="/sertifikat" class="btn btn-outline-success d-block mb-2">Sertifikat</a>
                                     <form action="/user/logout" method="POST">
                                         @csrf
                                         <button type="submit" class="btn btn-outline-danger w-100">Logout</button>

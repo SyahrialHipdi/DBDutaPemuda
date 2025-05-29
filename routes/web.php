@@ -4,9 +4,12 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\VerifikatorController;
 use App\Http\Controllers\JuriController;
 use App\Http\Controllers\Auth\UserAuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\LocationController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 // Landing Page Route
 Route::get('/', [LandingPageController::class, 'index'])->name('home');
@@ -38,10 +41,30 @@ Route::prefix('user')->group(function () {
     Route::get('/register', [UserAuthController::class, 'showRegisterForm'])->name('user.register');
     Route::post('/register', [UserAuthController::class, 'register']);
     Route::post('/logout', [UserAuthController::class, 'logout'])->name('user.logout');
+    Route::get('/show/{user}', [UserController::class, 'show'])->name('user.show');
     
     Route::get('/dashboard', function () {
         return view('user.dashboard');
+    })->middleware('auth:web')->name('user.dashboard');
+
+    
+
+    Route::get('/show', function () {
+        $user = Auth::user();
+        return view('user.show',compact('user'));
     })->middleware('auth:web');
+
+    Route::get('/progress', function () {
+        $user = Auth::user();
+        return view('user.progress',compact('user'));
+    })->middleware('auth:web');
+
+    Route::get('/edit', function () {
+        $user = Auth::user();
+        return view('user.edit',compact('user'));
+    })->middleware('auth:web');
+
+    Route::put('/update/{id}', [UserController::class, 'update'])->name('user.update');
 });
 
 
@@ -73,3 +96,8 @@ Route::prefix('admin')->group(function () {
         // Route khusus juri
     });
 });
+
+Route::get('/provinsi', [LocationController::class, 'getProvinsi']);
+Route::get('/kota/{kodeProvinsi}', [LocationController::class, 'getKota']);
+Route::get('/kecamatan/{kodeKota}', [LocationController::class, 'getKecamatan']);
+Route::get('/desa/{kodeKecamatan}', [LocationController::class, 'getDesa']);

@@ -40,8 +40,8 @@ class UserAuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            // 'nama' => 'required|string|max:255',
+            'nik' => 'required|string|max:255|unique:users',
             // 'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -53,25 +53,25 @@ class UserAuthController extends Controller
     
 
         $user = User::create([
+            'nik' => $request->nik,
             'nama' => $request->nama,
             'email' => $request->email,
             'whatsapp' => $request->whatsapp,
             'tanggalLahir' => $request->tanggalLahir,
             'password' => $hashedPassword,
-            'alamat' => $request->alamat,
-            'rt_rw' => $request->rt_rw,
-            'desa' => $request->desa,
-            'kecamatan' => $request->kecamatan,
-            'kabupaten' => $request->kabupaten,
             'provinsi' => $request->provinsi,
+            'kota' => $request->kota,
+            'kecamatan' => $request->kecamatan,
+            'desa' => $request->desa,
+            'rt_rw' => $request->rt_rw,
+            'alamat' => $request->alamat,
             'kodePos' => $request->kodePos,
             'proposal' => $request->proposal,
-            // 'password' => Hash::make($request->password),
         ]);
 
         Auth::guard('web')->login($user);
 
-        return redirect('user/dashboard')->with('success', 'Berhasil Daftar, password Anda adalah ggal lahir) sialakn ganti password untuk keamanan');
+        return redirect('user/dashboard')->with('success', "Berhasil Daftar, password Anda adalah {$password} (tanggal lahir) sialakn ganti password untuk keamanan");
     }
 
     public function logout(Request $request)
